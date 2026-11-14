@@ -1,0 +1,1648 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#160b10">
+<title>PCNOT AI - Inteligência Artificial</title>
+<meta name="description" content="PCNOT AI - Sua inteligência artificial pessoal.">
+<meta property="og:title" content="PCNOT AI - Inteligência Artificial">
+<meta property="og:description" content="Conheça a PCNOT AI, sua inteligência artificial pessoal.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://fancied-flashbulb-washbowl.ngrok-free.dev/">
+<meta property="og:site_name" content="PCNOT AI">
+
+<style>
+:root {
+    --bg:#10090d;
+    --sidebar:#190e14;
+    --panel:#21131b;
+    --panel2:#2b1923;
+    --border:#402532;
+    --text:#f7edf1;
+    --muted:#a995a0;
+    --red:#c52d4b;
+    --red-light:#ed4564;
+    --wine:#701b36;
+    --green:#45c987;
+    --shadow:0 18px 55px #0007;
+}
+
+* {box-sizing:border-box}
+
+body {
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font-family:Arial,Helvetica,sans-serif;
+    min-height:100vh;
+}
+
+button,input,textarea {font:inherit}
+button {cursor:pointer}
+.hidden {display:none!important}
+
+.apple-logo {
+    display:grid;
+    place-items:center;
+    position:relative;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 25%,#b72e50,#4a0b20 65%,#16060d);
+    border:1px solid #a52c4b;
+    box-shadow:0 0 18px #c52d4b55,0 0 40px #c52d4b25;
+    animation:appleFloat 4s ease-in-out infinite;
+}
+
+.apple-logo::before {
+    content:"🍎";
+    font-size:42px;
+    filter:brightness(.65) saturate(1.5);
+    text-shadow:0 0 15px #ff315c;
+}
+
+@keyframes appleFloat {
+    0%,100% {transform:translateY(0) rotate(-3deg)}
+    50% {transform:translateY(-8px) rotate(3deg)}
+}
+
+/* LOGIN */
+
+.auth-screen {
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:25px;
+    background:
+      radial-gradient(circle at 20% 20%,#701b3630,transparent 35%),
+      radial-gradient(circle at 80% 80%,#c52d4b18,transparent 35%),
+      var(--bg);
+}
+
+.auth-card {
+    width:100%;
+    max-width:440px;
+    padding:35px;
+    border:1px solid var(--border);
+    border-radius:22px;
+    background:#190f16ed;
+    box-shadow:var(--shadow);
+}
+
+.brand {text-align:center;margin-bottom:30px}
+
+.brand-symbol {
+    width:82px;
+    height:82px;
+    margin:0 auto 15px;
+}
+
+.brand h1 {
+    margin:0;
+    font-size:27px;
+    letter-spacing:2px;
+}
+
+.brand h1 span,.welcome h1 span {color:var(--red-light)}
+
+.brand p,.auth-description {
+    color:var(--muted);
+    font-size:13px;
+}
+
+.auth-card h2 {font-size:21px;margin-bottom:8px}
+
+.field {margin-bottom:16px}
+
+.field label {
+    display:block;
+    font-size:13px;
+    margin-bottom:8px;
+    color:#d8c5ce;
+}
+
+.field input,.field textarea {
+    width:100%;
+    padding:14px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:#100b10;
+    color:white;
+    outline:none;
+}
+
+.field input:focus,.field textarea:focus {border-color:var(--red)}
+
+.primary-btn {
+    width:100%;
+    border:0;
+    border-radius:10px;
+    padding:14px;
+    background:linear-gradient(135deg,var(--red),var(--wine));
+    color:white;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.primary-btn:hover {filter:brightness(1.15);transform:translateY(-1px)}
+.primary-btn:disabled {opacity:.55;cursor:not-allowed;transform:none}
+
+.auth-switch {
+    margin-top:20px;
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.auth-switch button {
+    background:none;
+    border:0;
+    color:var(--red-light);
+    font-weight:bold;
+}
+
+.terms-accept {
+    margin:17px 0;
+    font-size:12px;
+    color:var(--muted);
+    line-height:1.5;
+}
+
+.terms-accept label {display:flex;align-items:flex-start;gap:9px}
+.terms-accept input {margin-top:3px;accent-color:var(--red)}
+.terms-accept a {color:var(--red-light);text-decoration:none}
+.auth-error {color:#ff8193;font-size:13px;margin:12px 0}
+
+/* APLICATIVO */
+
+.app-shell {display:flex;height:100vh;overflow:hidden}
+
+.sidebar {
+    width:275px;
+    min-width:275px;
+    background:var(--sidebar);
+    border-right:1px solid var(--border);
+    display:flex;
+    flex-direction:column;
+    padding:19px 14px;
+    z-index:20;
+}
+
+.sidebar-brand {
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:5px 8px 22px;
+}
+
+.sidebar-logo {width:43px;height:43px}
+.sidebar-brand strong {font-size:17px;letter-spacing:1px}
+.sidebar-brand span {color:var(--red-light)}
+
+.sidebar-section {
+    color:var(--muted);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    padding:20px 10px 9px;
+}
+
+.side-btn {
+    display:flex;
+    align-items:center;
+    gap:11px;
+    width:100%;
+    border:1px solid transparent;
+    border-radius:10px;
+    background:transparent;
+    color:#d8cbd1;
+    padding:12px;
+    text-align:left;
+    font-size:13px;
+    margin-bottom:4px;
+    transition:.2s;
+}
+
+.side-btn:hover,.side-btn.active {
+    background:#c52d4b1c;
+    border-color:#c52d4b40;
+    color:white;
+}
+
+.side-icon {width:19px;text-align:center;font-size:17px}
+
+.history-list {overflow-y:auto;flex:1;min-height:60px;padding-top:5px}
+
+.history-item {
+    display:flex;
+    align-items:center;
+    gap:5px;
+    padding:5px;
+    border-radius:9px;
+}
+
+.history-item:hover {background:#ffffff08}
+
+.history-open {
+    flex:1;
+    min-width:0;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    border:0;
+    background:transparent;
+    color:#cbbdc5;
+    padding:8px 5px;
+    text-align:left;
+    font-size:12px;
+}
+
+.delete-small {
+    border:0;
+    background:transparent;
+    color:#987b87;
+    padding:7px;
+}
+
+.delete-small:hover {color:#ff7187}
+
+.sidebar-bottom {border-top:1px solid var(--border);padding-top:13px}
+
+.user-info {display:flex;align-items:center;gap:10px;padding:10px 7px}
+
+.user-avatar {
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--red),var(--wine));
+    display:grid;
+    place-items:center;
+    font-weight:bold;
+}
+
+.user-details {min-width:0;flex:1}
+.user-details strong {display:block;font-size:12px;overflow:hidden;text-overflow:ellipsis}
+.user-details small {color:var(--muted);font-size:10px}
+
+.logout-btn {
+    border:0;
+    background:transparent;
+    color:#bd9eaa;
+    font-size:12px;
+    padding:8px;
+}
+
+/* ÁREA PRINCIPAL */
+
+.main {
+    flex:1;
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    background:radial-gradient(circle at 50% 0%,#701b3610,transparent 50%),var(--bg);
+}
+
+.topbar {
+    height:65px;
+    min-height:65px;
+    border-bottom:1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+}
+
+.topbar-title {font-size:14px;font-weight:bold}
+
+.online-status {
+    display:flex;
+    align-items:center;
+    gap:7px;
+    color:var(--green);
+    font-size:11px;
+}
+
+.online-dot {
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 10px var(--green);
+}
+
+.menu-toggle {
+    display:none;
+    background:transparent;
+    border:0;
+    color:white;
+    font-size:22px;
+}
+
+.view-host {flex:1;overflow-y:auto;padding:30px 20px}
+.view-content {max-width:850px;margin:auto}
+
+/* BOAS-VINDAS */
+
+.welcome {
+    min-height:65vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+.welcome-symbol {width:105px;height:105px;margin-bottom:25px}
+
+.welcome h1 {font-size:clamp(27px,5vw,42px);margin:0 0 12px}
+
+.welcome p {
+    color:var(--muted);
+    max-width:430px;
+    line-height:1.6;
+    font-size:14px;
+}
+
+.suggestions {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+    margin-top:30px;
+    width:100%;
+    max-width:600px;
+}
+
+.suggestion {
+    border:1px solid var(--border);
+    background:var(--panel);
+    color:#d8c8d0;
+    padding:16px;
+    border-radius:12px;
+    text-align:left;
+    font-size:12px;
+    transition:.2s;
+}
+
+.suggestion:hover {border-color:var(--red);background:var(--panel2)}
+
+/* MENSAGENS */
+
+.messages {display:flex;flex-direction:column;gap:22px;padding-bottom:20px}
+.message {display:flex;gap:12px;align-items:flex-start}
+.message.user {flex-direction:row-reverse}
+
+.message-avatar {
+    width:36px;
+    height:36px;
+    min-width:36px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    font-size:12px;
+    font-weight:bold;
+    background:var(--wine);
+}
+
+.message.assistant .message-avatar {
+    font-size:0;
+    background:radial-gradient(circle at 35% 25%,#b72e50,#4a0b20 65%,#16060d);
+    border:1px solid #a52c4b;
+}
+
+.message.assistant .message-avatar::before {content:"🍎";font-size:20px}
+
+.message.user .message-avatar {background:#34303a;border-radius:10px}
+
+.message-content {
+    max-width:82%;
+    padding:13px 16px;
+    border-radius:13px;
+    background:var(--panel);
+    border:1px solid var(--border);
+    line-height:1.65;
+    font-size:14px;
+    white-space:pre-wrap;
+    overflow-wrap:anywhere;
+}
+
+.message.user .message-content {background:#421827;border-color:#743047}
+.typing {color:var(--muted);font-size:13px;padding:12px}
+
+/* CAMPO DE MENSAGEM */
+
+.composer-area {
+    padding:15px 20px 20px;
+    border-top:1px solid var(--border);
+    background:#10090df5;
+}
+
+.composer {
+    max-width:850px;
+    margin:auto;
+    display:flex;
+    align-items:flex-end;
+    gap:10px;
+    padding:10px;
+    border-radius:15px;
+    background:var(--panel);
+    border:1px solid var(--border);
+}
+
+.composer:focus-within {border-color:#a72a45}
+
+.composer textarea {
+    flex:1;
+    resize:none;
+    max-height:150px;
+    min-height:42px;
+    padding:11px;
+    border:0;
+    outline:0;
+    background:transparent;
+    color:white;
+    font-size:14px;
+}
+
+.composer textarea::placeholder {color:#927e88}
+
+.send-btn {
+    width:42px;
+    height:42px;
+    border:0;
+    border-radius:11px;
+    background:var(--red);
+    color:white;
+    font-size:19px;
+}
+
+.send-btn:hover {background:var(--red-light)}
+.send-btn:disabled {opacity:.5;cursor:not-allowed}
+
+.composer-note {text-align:center;color:#75636c;font-size:10px;margin-top:9px}
+
+/* PAINÉIS */
+
+.page-heading {margin-bottom:22px}
+.page-heading h2 {margin:0 0 7px;font-size:23px}
+.page-heading p {margin:0;color:var(--muted);font-size:13px}
+
+.data-card {
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:16px;
+    margin-bottom:10px;
+}
+
+.data-card strong {display:block;margin-bottom:6px;font-size:14px}
+.data-card small {color:var(--muted);font-size:11px}
+
+.data-card p {
+    color:#d1c0c8;
+    font-size:13px;
+    white-space:pre-wrap;
+    overflow-wrap:anywhere;
+}
+
+.card-actions {display:flex;gap:8px;margin-top:12px}
+
+.action-btn {
+    border:1px solid var(--border);
+    border-radius:8px;
+    padding:8px 12px;
+    background:var(--panel2);
+    color:#e6d7de;
+    font-size:11px;
+}
+
+.action-btn:hover {border-color:var(--red)}
+.action-btn.danger {color:#ff8193}
+
+.empty-state {
+    text-align:center;
+    color:var(--muted);
+    padding:40px 15px;
+    border:1px dashed var(--border);
+    border-radius:12px;
+    font-size:13px;
+}
+
+/* MODAL */
+
+.modal {
+    position:fixed;
+    inset:0;
+    z-index:100;
+    background:#000b;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:15px;
+}
+
+.modal-box {
+    width:100%;
+    max-width:750px;
+    max-height:85vh;
+    overflow-y:auto;
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px;
+    box-shadow:var(--shadow);
+}
+
+.modal-header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.modal-header h2 {font-size:18px;margin:0}
+.close-btn {border:0;background:transparent;color:white;font-size:23px}
+
+.toast {
+    position:fixed;
+    bottom:25px;
+    right:25px;
+    max-width:min(350px,calc(100vw - 30px));
+    background:#27151f;
+    border:1px solid var(--border);
+    color:white;
+    padding:13px 17px;
+    border-radius:10px;
+    box-shadow:var(--shadow);
+    z-index:200;
+    font-size:13px;
+}
+
+.sidebar-backdrop {display:none}
+
+@media(max-width:750px) {
+    .sidebar {
+        position:fixed;
+        top:0;
+        bottom:0;
+        left:0;
+        transform:translateX(-105%);
+        transition:transform .25s;
+        width:280px;
+        min-width:280px;
+    }
+
+    .sidebar.open {transform:translateX(0)}
+
+    .sidebar-backdrop.show {
+        display:block;
+        position:fixed;
+        inset:0;
+        background:#0009;
+        z-index:15;
+    }
+
+    .menu-toggle {display:block}
+    .topbar {padding:0 15px}
+    .view-host {padding:20px 13px}
+    .composer-area {padding:10px}
+    .suggestions {grid-template-columns:1fr}
+    .auth-card {padding:25px 20px}
+    .message-content {max-width:88%;font-size:13px}
+    .welcome-symbol {width:88px;height:88px}
+}
+</style>
+</head>
+
+<body>
+
+<section id="authScreen" class="auth-screen">
+<div class="auth-card">
+
+    <div class="brand">
+        <div class="brand-symbol apple-logo"></div>
+        <h1>PCNOT <span>AI</span></h1>
+        <p>Sua inteligência artificial pessoal</p>
+    </div>
+
+    <form id="loginForm">
+        <h2>Bem-vindo de volta</h2>
+        <p class="auth-description">Entre na sua conta para continuar.</p>
+
+        <div class="field">
+            <label for="loginUsername">Nome de usuário</label>
+            <input id="loginUsername" required autocomplete="username">
+        </div>
+
+        <div class="field">
+            <label for="loginSenha">Senha</label>
+            <input id="loginSenha" type="password" required autocomplete="current-password">
+        </div>
+
+        <div id="loginError" class="auth-error"></div>
+
+        <button class="primary-btn" type="submit">Entrar na PCNOT AI</button>
+
+        <div class="auth-switch">
+            Ainda não tem conta?
+            <button type="button" id="showRegister">Criar cadastro</button>
+        </div>
+    </form>
+
+    <form id="registerForm" class="hidden">
+        <h2>Criar sua conta</h2>
+        <p class="auth-description">Preencha os dados para começar.</p>
+
+        <div class="field">
+            <label for="registerNome">Nome de exibição</label>
+            <input id="registerNome" required maxlength="60" autocomplete="name">
+        </div>
+
+        <div class="field">
+            <label for="registerUsername">Nome de usuário</label>
+            <input id="registerUsername" required maxlength="30" autocomplete="username">
+        </div>
+
+        <div class="field">
+            <label for="registerFinalidade">Para que deseja usar a PCNOT AI?</label>
+            <textarea id="registerFinalidade" rows="2" required maxlength="300"></textarea>
+        </div>
+
+        <div class="field">
+            <label for="registerSenha">Criar senha</label>
+            <input id="registerSenha" type="password" required minlength="6" autocomplete="new-password">
+        </div>
+
+        <div class="terms-accept">
+            <label>
+                <input type="checkbox" id="aceitarTermos" required>
+                <span>
+                    Li e aceito os
+                    <a href="/termos" target="_blank" rel="noopener noreferrer">
+                        Termos de Uso e a Política de Privacidade
+                    </a>.
+                </span>
+            </label>
+        </div>
+
+        <div id="registerError" class="auth-error"></div>
+
+        <button class="primary-btn" type="submit">Criar minha conta</button>
+
+        <div class="auth-switch">
+            Já possui uma conta?
+            <button type="button" id="showLogin">Fazer login</button>
+        </div>
+    </form>
+
+</div>
+</section>
+
+<section id="appScreen" class="app-shell hidden">
+
+    <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
+
+    <aside id="sidebar" class="sidebar">
+
+        <div class="sidebar-brand">
+            <div class="sidebar-logo apple-logo"></div>
+            <strong>PCNOT <span>AI</span></strong>
+        </div>
+
+        <button class="side-btn active" id="newChatBtn">
+            <span class="side-icon">＋</span>
+            Nova conversa
+        </button>
+
+        <button class="side-btn" id="memoriesBtn">
+            <span class="side-icon">◈</span>
+            Minhas memórias
+        </button>
+
+        <div id="adminSection" class="hidden">
+            <div class="sidebar-section">Administração</div>
+
+            <button class="side-btn" id="adminUsersBtn">
+                <span class="side-icon">♙</span>
+                Usuários
+            </button>
+
+            <button class="side-btn" id="adminConversationsBtn">
+                <span class="side-icon">▤</span>
+                Todas as conversas
+            </button>
+        </div>
+
+        <div class="sidebar-section">Histórico</div>
+
+        <div id="historyList" class="history-list">
+            <div class="empty-state">Carregando conversas...</div>
+        </div>
+
+        <div class="sidebar-bottom">
+            <div class="user-info">
+                <div class="user-avatar" id="userAvatar">P</div>
+                <div class="user-details">
+                    <strong id="userName">Usuário</strong>
+                    <small id="userRole">Conta pessoal</small>
+                </div>
+            </div>
+
+            <button class="logout-btn" id="logoutBtn">↪ Sair da conta</button>
+        </div>
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+            <div style="display:flex;align-items:center;gap:13px">
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
+                <div class="topbar-title" id="topbarTitle">Nova conversa</div>
+            </div>
+
+            <div class="online-status">
+                <span class="online-dot"></span>
+                PCNOT AI online
+            </div>
+        </header>
+
+        <div id="viewHost" class="view-host">
+            <div class="view-content">
+                <div class="welcome">
+                    <div class="welcome-symbol apple-logo"></div>
+                    <h1>Olá! Eu sou a <span>PCNOT AI</span></h1>
+                    <p>
+                        Sua inteligência artificial pessoal.
+                        Estou aqui para ajudar você a aprender,
+                        criar ideias e resolver suas dúvidas.
+                    </p>
+
+                    <div class="suggestions">
+                        <button class="suggestion" data-prompt="Explique um assunto de forma simples.">📚 Me ajude a estudar</button>
+                        <button class="suggestion" data-prompt="Me ajude a criar uma ideia de projeto.">💡 Criar uma ideia</button>
+                        <button class="suggestion" data-prompt="Me ensine algo interessante.">🧠 Aprender algo novo</button>
+                        <button class="suggestion" data-prompt="Me ajude a escrever um texto.">✍️ Escrever um texto</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="composer-area" id="composerArea">
+            <div class="composer">
+                <textarea id="messageInput" rows="1" placeholder="Converse com a PCNOT AI..."></textarea>
+                <button id="sendBtn" class="send-btn" aria-label="Enviar mensagem">➤</button>
+            </div>
+            <div class="composer-note">
+                A PCNOT AI pode cometer erros. Confira informações importantes.
+            </div>
+        </div>
+
+    </main>
+</section>
+
+<div id="conversationModal" class="modal hidden">
+    <div class="modal-box">
+        <div class="modal-header">
+            <h2 id="modalTitle">Conversa</h2>
+            <button class="close-btn" id="closeModal" aria-label="Fechar">×</button>
+        </div>
+        <div id="modalMessages"></div>
+    </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+let usuarioAtual = null;
+let conversaAtual = null;
+let enviando = false;
+let toastTimeout = null;
+
+async function api(url, options = {}) {
+    const config = {
+        method: options.method || "GET",
+        credentials: "same-origin",
+        headers: {...(options.headers || {})}
+    };
+
+    if (options.body !== undefined) {
+        config.headers["Content-Type"] = "application/json";
+        config.body = JSON.stringify(options.body);
+    }
+
+    let resposta;
+
+    try {
+        resposta = await fetch(url, config);
+    } catch {
+        throw new Error("Não foi possível conectar ao servidor PCNOT AI.");
+    }
+
+    const texto = await resposta.text();
+    let dados = {};
+
+    try {
+        dados = texto ? JSON.parse(texto) : {};
+    } catch {
+        dados = {detail:texto};
+    }
+
+    if (!resposta.ok) {
+        throw new Error(dados.detail || dados.message || "Ocorreu um erro.");
+    }
+
+    return dados;
+}
+
+function mostrarToast(mensagem) {
+    $("toast").textContent = mensagem;
+    $("toast").classList.remove("hidden");
+
+    clearTimeout(toastTimeout);
+
+    toastTimeout = setTimeout(() => {
+        $("toast").classList.add("hidden");
+    }, 3500);
+}
+
+/* LOGIN E CADASTRO */
+
+$("showRegister").addEventListener("click", () => {
+    $("loginForm").classList.add("hidden");
+    $("registerForm").classList.remove("hidden");
+    $("loginError").textContent = "";
+});
+
+$("showLogin").addEventListener("click", () => {
+    $("registerForm").classList.add("hidden");
+    $("loginForm").classList.remove("hidden");
+    $("registerError").textContent = "";
+});
+
+$("loginForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    $("loginError").textContent = "";
+
+    const username = $("loginUsername").value.trim();
+    const senha = $("loginSenha").value;
+    const botao = $("loginForm").querySelector("button[type=submit]");
+
+    botao.disabled = true;
+    botao.textContent = "Entrando...";
+
+    try {
+        await api("/auth/login", {
+            method:"POST",
+            body:{username,senha}
+        });
+
+        await verificarSessao();
+
+    } catch (erro) {
+        $("loginError").textContent = erro.message;
+
+    } finally {
+        botao.disabled = false;
+        botao.textContent = "Entrar na PCNOT AI";
+    }
+});
+
+$("registerForm").addEventListener("submit", async event => {
+    event.preventDefault();
+    $("registerError").textContent = "";
+
+    const nome_exibicao = $("registerNome").value.trim();
+    const username = $("registerUsername").value.trim();
+    const finalidade = $("registerFinalidade").value.trim();
+    const senha = $("registerSenha").value;
+    const aceitou_termos = $("aceitarTermos").checked;
+
+    if (!aceitou_termos) {
+        $("registerError").textContent = "Você precisa aceitar os termos.";
+        return;
+    }
+
+    const botao = $("registerForm").querySelector("button[type=submit]");
+    botao.disabled = true;
+    botao.textContent = "Criando conta...";
+
+    try {
+        await api("/auth/register", {
+            method:"POST",
+            body:{
+                username,
+                nome_exibicao,
+                finalidade,
+                senha,
+                aceitou_termos
+            }
+        });
+
+        mostrarToast("Cadastro realizado com sucesso!");
+        await verificarSessao();
+
+    } catch (erro) {
+        $("registerError").textContent = erro.message;
+
+    } finally {
+        botao.disabled = false;
+        botao.textContent = "Criar minha conta";
+    }
+});
+
+/* SESSÃO */
+
+async function verificarSessao() {
+    try {
+        const dados = await api("/auth/me");
+        usuarioAtual = dados.usuario;
+        mostrarAplicativo();
+
+    } catch {
+        usuarioAtual = null;
+        $("appScreen").classList.add("hidden");
+        $("authScreen").classList.remove("hidden");
+    }
+}
+
+function mostrarAplicativo() {
+    $("authScreen").classList.add("hidden");
+    $("appScreen").classList.remove("hidden");
+
+    const nome = usuarioAtual.nome_exibicao || usuarioAtual.username;
+
+    $("userName").textContent = nome;
+    $("userAvatar").textContent = nome.charAt(0).toUpperCase();
+
+    $("userRole").textContent = usuarioAtual.admin
+        ? "Administrador"
+        : "Conta pessoal";
+
+    $("adminSection").classList.toggle("hidden",!usuarioAtual.admin);
+
+    mostrarTelaInicial();
+    carregarHistorico();
+}
+
+/* NAVEGAÇÃO */
+
+function fecharSidebar() {
+    $("sidebar").classList.remove("open");
+    $("sidebarBackdrop").classList.remove("show");
+}
+
+function abrirSidebar() {
+    $("sidebar").classList.add("open");
+    $("sidebarBackdrop").classList.add("show");
+}
+
+$("menuToggle").addEventListener("click",abrirSidebar);
+$("sidebarBackdrop").addEventListener("click",fecharSidebar);
+
+function definirTitulo(titulo) {
+    $("topbarTitle").textContent = titulo;
+}
+
+function definirMenuAtivo(id) {
+    document.querySelectorAll(".side-btn").forEach(botao => {
+        botao.classList.remove("active");
+    });
+    $(id)?.classList.add("active");
+}
+
+function mostrarTelaInicial() {
+    conversaAtual = null;
+    definirTitulo("Nova conversa");
+    $("composerArea").classList.remove("hidden");
+    $("viewHost").replaceChildren();
+
+    const conteudo = document.createElement("div");
+    conteudo.className = "view-content";
+
+    const welcome = document.createElement("div");
+    welcome.className = "welcome";
+
+    const simbolo = document.createElement("div");
+    simbolo.className = "welcome-symbol apple-logo";
+
+    const titulo = document.createElement("h1");
+    titulo.append("Olá! Eu sou a ");
+
+    const destaque = document.createElement("span");
+    destaque.textContent = "PCNOT AI";
+    titulo.appendChild(destaque);
+
+    const descricao = document.createElement("p");
+    descricao.textContent =
+        "Sua inteligência artificial pessoal. Estou aqui para ajudar você a aprender, criar ideias e resolver suas dúvidas.";
+
+    const sugestoes = document.createElement("div");
+    sugestoes.className = "suggestions";
+
+    const itens = [
+        ["📚 Me ajude a estudar","Explique um assunto de forma simples."],
+        ["💡 Criar uma ideia","Me ajude a criar uma ideia de projeto."],
+        ["🧠 Aprender algo novo","Me ensine algo interessante."],
+        ["✍️ Escrever um texto","Me ajude a escrever um texto."]
+    ];
+
+    itens.forEach(([rotulo,prompt]) => {
+        const botao = document.createElement("button");
+        botao.className = "suggestion";
+        botao.textContent = rotulo;
+
+        botao.addEventListener("click",() => {
+            $("messageInput").value = prompt;
+            enviarMensagem();
+        });
+
+        sugestoes.appendChild(botao);
+    });
+
+    welcome.append(simbolo,titulo,descricao,sugestoes);
+    conteudo.appendChild(welcome);
+    $("viewHost").appendChild(conteudo);
+
+    fecharSidebar();
+}
+
+$("newChatBtn").addEventListener("click",() => {
+    mostrarTelaInicial();
+    definirMenuAtivo("newChatBtn");
+    fecharSidebar();
+    $("messageInput").focus();
+});
+
+/* MENSAGENS */
+
+function criarMensagem(role,conteudo) {
+    const linha = document.createElement("div");
+    linha.className = "message " + (role === "user" ? "user" : "assistant");
+
+    const avatar = document.createElement("div");
+    avatar.className = "message-avatar";
+    avatar.textContent = role === "user" ? "EU" : "";
+
+    const texto = document.createElement("div");
+    texto.className = "message-content";
+    texto.textContent = conteudo;
+
+    linha.append(avatar,texto);
+    return linha;
+}
+
+function obterAreaMensagens() {
+    let area = $("viewHost").querySelector(".messages");
+
+    if (!area) {
+        $("viewHost").replaceChildren();
+        area = document.createElement("div");
+        area.className = "view-content messages";
+        $("viewHost").appendChild(area);
+    }
+
+    return area;
+}
+
+function rolarParaBaixo() {
+    $("viewHost").scrollTop = $("viewHost").scrollHeight;
+}
+
+/* ENVIAR MENSAGEM */
+
+async function enviarMensagem() {
+    if (enviando) return;
+
+    const texto = $("messageInput").value.trim();
+    if (!texto) return;
+
+    enviando = true;
+    $("sendBtn").disabled = true;
+    $("messageInput").value = "";
+    $("messageInput").style.height = "42px";
+
+    const area = obterAreaMensagens();
+    area.appendChild(criarMensagem("user",texto));
+
+    const carregando = document.createElement("div");
+    carregando.className = "typing";
+    carregando.textContent = "PCNOT AI está pensando...";
+    area.appendChild(carregando);
+
+    rolarParaBaixo();
+
+    try {
+        const dados = await api("/conversar",{
+            method:"POST",
+            body:{
+                texto,
+                conversa_id:conversaAtual
+            }
+        });
+
+        conversaAtual = dados.conversa_id;
+        carregando.remove();
+
+        area.appendChild(
+            criarMensagem("assistant",dados.resposta || "Não recebi uma resposta.")
+        );
+
+        carregarHistorico();
+
+    } catch (erro) {
+        carregando.remove();
+        area.appendChild(criarMensagem("assistant","Erro: " + erro.message));
+
+    } finally {
+        enviando = false;
+        $("sendBtn").disabled = false;
+        $("messageInput").focus();
+        rolarParaBaixo();
+    }
+}
+
+$("sendBtn").addEventListener("click",enviarMensagem);
+
+$("messageInput").addEventListener("keydown",event => {
+    if (event.key === "Enter" && !event.shiftKey) {
+        event.preventDefault();
+        enviarMensagem();
+    }
+});
+
+$("messageInput").addEventListener("input",() => {
+    const campo = $("messageInput");
+    campo.style.height = "42px";
+    campo.style.height = Math.min(campo.scrollHeight,150) + "px";
+});
+
+/* HISTÓRICO */
+
+async function carregarHistorico() {
+    try {
+        const dados = await api("/conversas");
+        const lista = $("historyList");
+        lista.replaceChildren();
+
+        const conversas = Array.isArray(dados)
+            ? dados
+            : (dados.conversas || []);
+
+        if (!conversas.length) {
+            const vazio = document.createElement("div");
+            vazio.className = "empty-state";
+            vazio.textContent = "Nenhuma conversa ainda.";
+            lista.appendChild(vazio);
+            return;
+        }
+
+        conversas.forEach(conversa => {
+            const item = document.createElement("div");
+            item.className = "history-item";
+
+            const abrir = document.createElement("button");
+            abrir.className = "history-open";
+            abrir.textContent = conversa.titulo || "Nova conversa";
+            abrir.addEventListener("click",() => abrirConversa(conversa.id));
+
+            const excluir = document.createElement("button");
+            excluir.className = "delete-small";
+            excluir.textContent = "×";
+            excluir.title = "Excluir conversa";
+            excluir.addEventListener("click",() => excluirConversa(conversa.id));
+
+            item.append(abrir,excluir);
+            lista.appendChild(item);
+        });
+
+    } catch {
+        $("historyList").textContent = "Erro ao carregar histórico.";
+    }
+}
+
+async function abrirConversa(id) {
+    try {
+        const dados = await api("/conversas/" + encodeURIComponent(id));
+        conversaAtual = id;
+
+        const mensagens = Array.isArray(dados)
+            ? dados
+            : (dados.mensagens || []);
+
+        $("viewHost").replaceChildren();
+
+        const area = document.createElement("div");
+        area.className = "view-content messages";
+
+        mensagens.forEach(mensagem => {
+            area.appendChild(criarMensagem(mensagem.role,mensagem.content));
+        });
+
+        $("viewHost").appendChild(area);
+        definirTitulo("Conversa");
+        $("composerArea").classList.remove("hidden");
+
+        fecharSidebar();
+        rolarParaBaixo();
+
+    } catch (erro) {
+        mostrarToast("Não foi possível abrir: " + erro.message);
+    }
+}
+
+async function excluirConversa(id) {
+    if (!confirm("Deseja excluir esta conversa?")) return;
+
+    try {
+        await api("/conversas/" + encodeURIComponent(id),{
+            method:"DELETE"
+        });
+
+        if (conversaAtual === id) mostrarTelaInicial();
+
+        await carregarHistorico();
+        mostrarToast("Conversa excluída.");
+
+    } catch (erro) {
+        mostrarToast(erro.message);
+    }
+}
+
+/* MEMÓRIAS */
+
+$("memoriesBtn").addEventListener("click",abrirMemorias);
+
+async function abrirMemorias() {
+    definirMenuAtivo("memoriesBtn");
+    definirTitulo("Minhas memórias");
+    fecharSidebar();
+
+    $("composerArea").classList.add("hidden");
+    $("viewHost").replaceChildren();
+
+    const conteudo = document.createElement("div");
+    conteudo.className = "view-content";
+
+    const cabecalho = document.createElement("div");
+    cabecalho.className = "page-heading";
+
+    const titulo = document.createElement("h2");
+    titulo.textContent = "Minhas memórias";
+
+    const descricao = document.createElement("p");
+    descricao.textContent = "Informações salvas pela PCNOT AI.";
+
+    cabecalho.append(titulo,descricao);
+    conteudo.appendChild(cabecalho);
+
+    const carregando = document.createElement("div");
+    carregando.className = "empty-state";
+    carregando.textContent = "Carregando memórias...";
+    conteudo.appendChild(carregando);
+
+    $("viewHost").appendChild(conteudo);
+
+    try {
+        const dados = await api("/memorias");
+        carregando.remove();
+
+        const memorias = dados.memorias || [];
+
+        if (!memorias.length) {
+            const vazio = document.createElement("div");
+            vazio.className = "empty-state";
+            vazio.textContent = "Você ainda não possui memórias salvas.";
+            conteudo.appendChild(vazio);
+            return;
+        }
+
+        memorias.forEach(memoria => {
+            const card = document.createElement("div");
+            card.className = "data-card";
+
+            const texto = document.createElement("p");
+            texto.textContent = memoria.conteudo;
+
+            const data = document.createElement("small");
+            data.textContent = memoria.data || "";
+
+            const acoes = document.createElement("div");
+            acoes.className = "card-actions";
+
+            const excluir = document.createElement("button");
+            excluir.className = "action-btn danger";
+            excluir.textContent = "Excluir memória";
+
+            excluir.addEventListener("click",async () => {
+                if (!confirm("Deseja excluir esta memória?")) return;
+
+                try {
+                    await api("/memorias/" + encodeURIComponent(memoria.id),{
+                        method:"DELETE"
+                    });
+
+                    abrirMemorias();
+                    mostrarToast("Memória excluída.");
+
+                } catch (erro) {
+                    mostrarToast(erro.message);
+                }
+            });
+
+            acoes.appendChild(excluir);
+            card.append(texto,data,acoes);
+            conteudo.appendChild(card);
+        });
+
+    } catch (erro) {
+        carregando.textContent = "Erro: " + erro.message;
+    }
+}
+
+/* ADMIN - USUÁRIOS */
+
+$("adminUsersBtn").addEventListener("click",carregarUsuarios);
+
+async function carregarUsuarios() {
+    if (!usuarioAtual?.admin) return;
+
+    definirMenuAtivo("adminUsersBtn");
+    definirTitulo("Usuários cadastrados");
+    fecharSidebar();
+
+    $("composerArea").classList.add("hidden");
+    $("viewHost").replaceChildren();
+
+    const conteudo = document.createElement("div");
+    conteudo.className = "view-content";
+
+    const cabecalho = document.createElement("div");
+    cabecalho.className = "page-heading";
+
+    const titulo = document.createElement("h2");
+    titulo.textContent = "Usuários cadastrados";
+
+    const descricao = document.createElement("p");
+    descricao.textContent = "Gerencie as contas da PCNOT AI.";
+
+    cabecalho.append(titulo,descricao);
+    conteudo.appendChild(cabecalho);
+
+    const carregando = document.createElement("div");
+    carregando.className = "empty-state";
+    carregando.textContent = "Carregando usuários...";
+    conteudo.appendChild(carregando);
+
+    $("viewHost").appendChild(conteudo);
+
+    try {
+        const dados = await api("/admin/usuarios");
+        carregando.remove();
+
+        const usuarios = dados.usuarios || [];
+
+        if (!usuarios.length) {
+            const vazio = document.createElement("div");
+            vazio.className = "empty-state";
+            vazio.textContent = "Nenhum usuário encontrado.";
+            conteudo.appendChild(vazio);
+            return;
+        }
+
+        usuarios.forEach(usuario => {
+            const card = document.createElement("div");
+            card.className = "data-card";
+
+            const nome = document.createElement("strong");
+            nome.textContent = usuario.nome_exibicao || usuario.username;
+
+            const detalhes = document.createElement("small");
+            detalhes.textContent =
+                "Usuário: " + usuario.username +
+                " | Finalidade: " + (usuario.finalidade || "Não informada") +
+                " | Cadastro: " + (usuario.data || "");
+
+            const status = document.createElement("p");
+            status.textContent = usuario.admin
+                ? "Administrador"
+                : (usuario.ativo ? "Conta ativa" : "Conta bloqueada");
+
+            card.append(nome,detalhes,status);
+
+            if (!usuario.admin) {
+                const acoes = document.createElement("div");
+                acoes.className = "card-actions";
+
+                const botao = document.createElement("button");
+                botao.className = "action-btn";
+                botao.textContent = usuario.ativo
+                    ? "Bloquear usuário"
+                    : "Desbloquear usuário";
+
+                botao.addEventListener("click",async () => {
+                    try {
+                        await api(
+                            "/admin/usuarios/" +
+                            encodeURIComponent(usuario.id) +
+                            "/status",
+                            {
+                                method:"PATCH",
+                                body:{ativo:!usuario.ativo}
+                            }
+                        );
+
+                        mostrarToast("Status atualizado.");
+                        carregarUsuarios();
+
+                    } catch (erro) {
+                        mostrarToast(erro.message);
+                    }
+                });
+
+                acoes.appendChild(botao);
+                card.appendChild(acoes);
+            }
+
+            conteudo.appendChild(card);
+        });
+
+    } catch (erro) {
+        carregando.textContent = "Erro: " + erro.message;
+    }
+}
+
+/* ADMIN - CONVERSAS */
+
+$("adminConversationsBtn").addEventListener("click",carregarConversasAdmin);
+
+async function carregarConversasAdmin() {
+    if (!usuarioAtual?.admin) return;
+
+    definirMenuAtivo("adminConversationsBtn");
+    definirTitulo("Todas as conversas");
+    fecharSidebar();
+
+    $("composerArea").classList.add("hidden");
+    $("viewHost").replaceChildren();
+
+    const conteudo = document.createElement("div");
+    conteudo.className = "view-content";
+
+    const cabecalho = document.createElement("div");
+    cabecalho.className = "page-heading";
+
+    const titulo = document.createElement("h2");
+    titulo.textContent = "Todas as conversas";
+
+    const descricao = document.createElement("p");
+    descricao.textContent = "Conversas registradas na plataforma.";
+
+    cabecalho.append(titulo,descricao);
+    conteudo.appendChild(cabecalho);
+
+    const carregando = document.createElement("div");
+    carregando.className = "empty-state";
+    carregando.textContent = "Carregando conversas...";
+    conteudo.appendChild(carregando);
+
+    $("viewHost").appendChild(conteudo);
+
+    try {
+        const dados = await api("/admin/conversas");
+        carregando.remove();
+
+        const conversas = dados.conversas || [];
+
+        if (!conversas.length) {
+            const vazio = document.createElement("div");
+            vazio.className = "empty-state";
+            vazio.textContent = "Nenhuma conversa encontrada.";
+            conteudo.appendChild(vazio);
+            return;
+        }
+
+        conversas.forEach(conversa => {
+            const card = document.createElement("div");
+            card.className = "data-card";
+
+            const nome = document.createElement("strong");
+            nome.textContent = conversa.titulo || "Conversa sem título";
+
+            const detalhes = document.createElement("small");
+            detalhes.textContent =
+                "Usuário: " + (conversa.nome_exibicao || conversa.username) +
+                " | @" + conversa.username +
+                " | " + (conversa.data || "");
+
+            const acoes = document.createElement("div");
+            acoes.className = "card-actions";
+
+            const abrir = document.createElement("button");
+            abrir.className = "action-btn";
+            abrir.textContent = "Visualizar conversa";
+            abrir.addEventListener("click",() => abrirConversaAdmin(conversa.id));
+
+            acoes.appendChild(abrir);
+            card.append(nome,detalhes,acoes);
+            conteudo.appendChild(card);
+        });
+
+    } catch (erro) {
+        carregando.textContent = "Erro: " + erro.message;
+    }
+}
+
+/* ABRIR CONVERSA DO USUÁRIO */
+
+async function abrirConversaAdmin(id) {
+    try {
+        const dados = await api(
+            "/admin/conversas/" + encodeURIComponent(id)
+        );
+
+        const conversa = dados.conversa || {};
+        const mensagens = dados.mensagens || [];
+
+        $("modalTitle").textContent =
+            (conversa.titulo || "Conversa") +
+            " - " +
+            (conversa.nome_exibicao || conversa.username || "Usuário");
+
+        $("modalMessages").replaceChildren();
+
+        if (!mensagens.length) {
+            const vazio = document.createElement("div");
+            vazio.className = "empty-state";
+            vazio.textContent = "Esta conversa não possui mensagens.";
+            $("modalMessages").appendChild(vazio);
+        }
+
+        mensagens.forEach(mensagem => {
+            $("modalMessages").appendChild(
+                criarMensagem(mensagem.role,mensagem.content)
+            );
+        });
+
+        $("conversationModal").classList.remove("hidden");
+
+    } catch (erro) {
+        mostrarToast(erro.message);
+    }
+}
+
+function fecharModal() {
+    $("conversationModal").classList.add("hidden");
+}
+
+$("closeModal").addEventListener("click",fecharModal);
+
+$("conversationModal").addEventListener("click",event => {
+    if (event.target === $("conversationModal")) fecharModal();
+});
+
+document.addEventListener("keydown",event => {
+    if (event.key === "Escape") {
+        fecharModal();
+        fecharSidebar();
+    }
+});
+
+/* SAIR DA CONTA */
+
+$("logoutBtn").addEventListener("click",sair);
+
+async function sair() {
+    try {
+        await api("/auth/logout",{method:"POST"});
+    } catch {}
+
+    usuarioAtual = null;
+    conversaAtual = null;
+
+    $("appScreen").classList.add("hidden");
+    $("authScreen").classList.remove("hidden");
+
+    $("loginForm").reset();
+    $("registerForm").reset();
+
+    $("loginForm").classList.remove("hidden");
+    $("registerForm").classList.add("hidden");
+
+    $("loginError").textContent = "";
+    $("registerError").textContent = "";
+
+    mostrarToast("Você saiu da sua conta.");
+}
+
+/* INICIALIZAÇÃO */
+
+document.addEventListener("DOMContentLoaded",() => {
+    verificarSessao();
+});
+</script>
+
+</body>
+</html>
