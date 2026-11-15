@@ -29,9 +29,7 @@
     --shadow: 0 18px 55px #0007;
 }
 
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
@@ -41,17 +39,9 @@ body {
     min-height: 100vh;
 }
 
-button, input, textarea {
-    font: inherit;
-}
-
-button {
-    cursor: pointer;
-}
-
-.hidden {
-    display: none !important;
-}
+button, input, textarea { font: inherit; }
+button { cursor: pointer; }
+.hidden { display: none !important; }
 
 /* LOGO */
 
@@ -74,12 +64,8 @@ button {
 }
 
 @keyframes appleFloat {
-    0%, 100% {
-        transform: translateY(0) rotate(-3deg);
-    }
-    50% {
-        transform: translateY(-8px) rotate(3deg);
-    }
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-8px) rotate(3deg); }
 }
 
 /* LOGIN E CADASTRO */
@@ -106,42 +92,14 @@ button {
     box-shadow: var(--shadow);
 }
 
-.brand {
-    text-align: center;
-    margin-bottom: 30px;
-}
+.brand { text-align: center; margin-bottom: 30px; }
+.brand-symbol { width: 82px; height: 82px; margin: 0 auto 15px; }
+.brand h1 { margin: 0; font-size: 27px; letter-spacing: 2px; }
+.brand h1 span, .welcome h1 span { color: var(--red-light); }
+.brand p, .auth-description { color: var(--muted); font-size: 13px; }
+.auth-card h2 { font-size: 21px; margin-bottom: 8px; }
 
-.brand-symbol {
-    width: 82px;
-    height: 82px;
-    margin: 0 auto 15px;
-}
-
-.brand h1 {
-    margin: 0;
-    font-size: 27px;
-    letter-spacing: 2px;
-}
-
-.brand h1 span,
-.welcome h1 span {
-    color: var(--red-light);
-}
-
-.brand p,
-.auth-description {
-    color: var(--muted);
-    font-size: 13px;
-}
-
-.auth-card h2 {
-    font-size: 21px;
-    margin-bottom: 8px;
-}
-
-.field {
-    margin-bottom: 16px;
-}
+.field { margin-bottom: 16px; }
 
 .field label {
     display: block;
@@ -150,8 +108,7 @@ button {
     color: #d8c5ce;
 }
 
-.field input,
-.field textarea {
+.field input, .field textarea {
     width: 100%;
     padding: 14px;
     border-radius: 10px;
@@ -161,10 +118,7 @@ button {
     outline: none;
 }
 
-.field input:focus,
-.field textarea:focus {
-    border-color: var(--red);
-}
+.field input:focus, .field textarea:focus { border-color: var(--red); }
 
 .primary-btn {
     width: 100%;
@@ -177,16 +131,8 @@ button {
     transition: .2s;
 }
 
-.primary-btn:hover {
-    filter: brightness(1.15);
-    transform: translateY(-1px);
-}
-
-.primary-btn:disabled {
-    opacity: .55;
-    cursor: not-allowed;
-    transform: none;
-}
+.primary-btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+.primary-btn:disabled { opacity: .55; cursor: not-allowed; transform: none; }
 
 .auth-switch {
     margin-top: 20px;
@@ -209,27 +155,10 @@ button {
     line-height: 1.5;
 }
 
-.terms-accept label {
-    display: flex;
-    align-items: flex-start;
-    gap: 9px;
-}
-
-.terms-accept input {
-    margin-top: 3px;
-    accent-color: var(--red);
-}
-
-.terms-accept a {
-    color: var(--red-light);
-    text-decoration: none;
-}
-
-.auth-error {
-    color: #ff8193;
-    font-size: 13px;
-    margin: 12px 0;
-}
+.terms-accept label { display: flex; align-items: flex-start; gap: 9px; }
+.terms-accept input { margin-top: 3px; accent-color: var(--red); }
+.terms-accept a { color: var(--red-light); text-decoration: none; }
+.auth-error { color: #ff8193; font-size: 13px; margin: 12px 0; }
 
 /* APLICATIVO */
 
@@ -257,19 +186,9 @@ button {
     padding: 5px 8px 22px;
 }
 
-.sidebar-logo {
-    width: 43px;
-    height: 43px;
-}
-
-.sidebar-brand strong {
-    font-size: 17px;
-    letter-spacing: 1px;
-}
-
-.sidebar-brand span {
-    color: var(--red-light);
-}
+.sidebar-logo { width: 43px; height: 43px; }
+.sidebar-brand strong { font-size: 17px; letter-spacing: 1px; }
+.sidebar-brand span { color: var(--red-light); }
 
 .sidebar-section {
     color: var(--muted);
@@ -295,18 +214,13 @@ button {
     transition: .2s;
 }
 
-.side-btn:hover,
-.side-btn.active {
+.side-btn:hover, .side-btn.active {
     background: #c52d4b1c;
     border-color: #c52d4b40;
     color: white;
 }
 
-.side-icon {
-    width: 19px;
-    text-align: center;
-    font-size: 17px;
-}
+.side-icon { width: 19px; text-align: center; font-size: 17px; }
 
 .history-list {
     overflow-y: auto;
@@ -323,9 +237,7 @@ button {
     border-radius: 9px;
 }
 
-.history-item:hover {
-    background: #ffffff08;
-}
+.history-item:hover { background: #ffffff08; }
 
 .history-open {
     flex: 1;
@@ -348,21 +260,11 @@ button {
     padding: 7px;
 }
 
-.delete-small:hover {
-    color: #ff7187;
-}
+.delete-small:hover { color: #ff7187; }
 
-.sidebar-bottom {
-    border-top: 1px solid var(--border);
-    padding-top: 13px;
-}
+.sidebar-bottom { border-top: 1px solid var(--border); padding-top: 13px; }
 
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 7px;
-}
+.user-info { display: flex; align-items: center; gap: 10px; padding: 10px 7px; }
 
 .user-avatar {
     width: 36px;
@@ -374,22 +276,9 @@ button {
     font-weight: bold;
 }
 
-.user-details {
-    min-width: 0;
-    flex: 1;
-}
-
-.user-details strong {
-    display: block;
-    font-size: 12px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.user-details small {
-    color: var(--muted);
-    font-size: 10px;
-}
+.user-details { min-width: 0; flex: 1; }
+.user-details strong { display: block; font-size: 12px; overflow: hidden; text-overflow: ellipsis; }
+.user-details small { color: var(--muted); font-size: 10px; }
 
 .logout-btn {
     border: 0;
@@ -421,10 +310,7 @@ button {
     padding: 0 25px;
 }
 
-.topbar-title {
-    font-size: 14px;
-    font-weight: bold;
-}
+.topbar-title { font-size: 14px; font-weight: bold; }
 
 .online-status {
     display: flex;
@@ -456,10 +342,7 @@ button {
     padding: 30px 20px;
 }
 
-.view-content {
-    max-width: 850px;
-    margin: auto;
-}
+.view-content { max-width: 850px; margin: auto; }
 
 /* BOAS-VINDAS */
 
@@ -472,11 +355,7 @@ button {
     text-align: center;
 }
 
-.welcome-symbol {
-    width: 105px;
-    height: 105px;
-    margin-bottom: 25px;
-}
+.welcome-symbol { width: 105px; height: 105px; margin-bottom: 25px; }
 
 .welcome h1 {
     font-size: clamp(27px, 5vw, 42px);
@@ -510,10 +389,7 @@ button {
     transition: .2s;
 }
 
-.suggestion:hover {
-    border-color: var(--red);
-    background: var(--panel2);
-}
+.suggestion:hover { border-color: var(--red); background: var(--panel2); }
 
 /* MENSAGENS */
 
@@ -524,15 +400,8 @@ button {
     padding-bottom: 20px;
 }
 
-.message {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-}
-
-.message.user {
-    flex-direction: row-reverse;
-}
+.message { display: flex; gap: 12px; align-items: flex-start; }
+.message.user { flex-direction: row-reverse; }
 
 .message-avatar {
     width: 36px;
@@ -552,23 +421,10 @@ button {
     border: 1px solid #a52c4b;
 }
 
-.message.assistant .message-avatar::before {
-    content: "🍎";
-    font-size: 20px;
-}
+.message.assistant .message-avatar::before { content: "🍎"; font-size: 20px; }
+.message.user .message-avatar { background: #34303a; border-radius: 10px; }
 
-.message.user .message-avatar {
-    background: #34303a;
-    border-radius: 10px;
-}
-
-/* CONTEÚDO E BOTÃO COPIAR */
-
-.message-body {
-    flex: 1;
-    min-width: 0;
-    max-width: 82%;
-}
+.message-body { flex: 1; min-width: 0; max-width: 82%; }
 
 .message-content {
     width: fit-content;
@@ -583,18 +439,18 @@ button {
     overflow-wrap: anywhere;
 }
 
-.message.user .message-body {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
+.message.user .message-body { display: flex; flex-direction: column; align-items: flex-end; }
+.message.user .message-content { background: #421827; border-color: #743047; }
 
-.message.user .message-content {
-    background: #421827;
-    border-color: #743047;
+.message-image {
+    display: block;
+    max-width: min(100%, 340px);
+    max-height: 300px;
+    object-fit: contain;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    margin-bottom: 8px;
 }
-
-/* BOTÃO COPIAR */
 
 .copy-button {
     display: inline-flex;
@@ -618,20 +474,9 @@ button {
     transform: translateY(-1px);
 }
 
-.copy-button:active {
-    transform: scale(.97);
-}
-
-.copy-button:disabled {
-    opacity: .8;
-    cursor: default;
-}
-
-.typing {
-    color: var(--muted);
-    font-size: 13px;
-    padding: 12px;
-}
+.copy-button:active { transform: scale(.97); }
+.copy-button:disabled { opacity: .8; cursor: default; }
+.typing { color: var(--muted); font-size: 13px; padding: 12px; }
 
 /* CAMPO DE MENSAGEM */
 
@@ -646,19 +491,18 @@ button {
     margin: auto;
     display: flex;
     align-items: flex-end;
-    gap: 10px;
+    gap: 9px;
     padding: 10px;
     border-radius: 15px;
     background: var(--panel);
     border: 1px solid var(--border);
 }
 
-.composer:focus-within {
-    border-color: #a72a45;
-}
+.composer:focus-within { border-color: #a72a45; }
 
 .composer textarea {
     flex: 1;
+    min-width: 0;
     resize: none;
     max-height: 150px;
     min-height: 42px;
@@ -670,13 +514,48 @@ button {
     font-size: 14px;
 }
 
-.composer textarea::placeholder {
-    color: #927e88;
+.composer textarea::placeholder { color: #927e88; }
+
+.composer-tools {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+}
+
+.tool-btn {
+    width: 40px;
+    height: 40px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background: transparent;
+    color: #c9aeb9;
+    font-size: 19px;
+    transition: .2s;
+}
+
+.tool-btn:hover {
+    background: #c52d4b20;
+    border-color: #743047;
+    color: white;
+}
+
+.tool-btn.recording {
+    color: white;
+    background: #c52d4b;
+    border-color: #ed4564;
+    animation: recordingPulse 1s infinite;
+}
+
+@keyframes recordingPulse {
+    0%, 100% { box-shadow: 0 0 0 0 #ed456455; }
+    50% { box-shadow: 0 0 0 7px #ed456400; }
 }
 
 .send-btn {
     width: 42px;
     height: 42px;
+    flex-shrink: 0;
     border: 0;
     border-radius: 11px;
     background: var(--red);
@@ -684,14 +563,8 @@ button {
     font-size: 19px;
 }
 
-.send-btn:hover {
-    background: var(--red-light);
-}
-
-.send-btn:disabled {
-    opacity: .5;
-    cursor: not-allowed;
-}
+.send-btn:hover { background: var(--red-light); }
+.send-btn:disabled { opacity: .5; cursor: not-allowed; }
 
 .composer-note {
     text-align: center;
@@ -700,22 +573,47 @@ button {
     margin-top: 9px;
 }
 
+/* PRÉ-VISUALIZAÇÃO DA IMAGEM */
+
+.image-preview {
+    max-width: 850px;
+    margin: 0 auto 10px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.image-preview img {
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+.image-preview-info { flex: 1; min-width: 0; }
+.image-preview-info strong { display: block; font-size: 12px; }
+.image-preview-info div { color: var(--muted); font-size: 11px; margin-top: 5px; }
+
+.remove-image-btn {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #301722;
+    color: #ff8193;
+    font-size: 20px;
+}
+
 /* PAINÉIS */
 
-.page-heading {
-    margin-bottom: 22px;
-}
-
-.page-heading h2 {
-    margin: 0 0 7px;
-    font-size: 23px;
-}
-
-.page-heading p {
-    margin: 0;
-    color: var(--muted);
-    font-size: 13px;
-}
+.page-heading { margin-bottom: 22px; }
+.page-heading h2 { margin: 0 0 7px; font-size: 23px; }
+.page-heading p { margin: 0; color: var(--muted); font-size: 13px; }
 
 .data-card {
     background: var(--panel);
@@ -725,16 +623,8 @@ button {
     margin-bottom: 10px;
 }
 
-.data-card strong {
-    display: block;
-    margin-bottom: 6px;
-    font-size: 14px;
-}
-
-.data-card small {
-    color: var(--muted);
-    font-size: 11px;
-}
+.data-card strong { display: block; margin-bottom: 6px; font-size: 14px; }
+.data-card small { color: var(--muted); font-size: 11px; }
 
 .data-card p {
     color: #d1c0c8;
@@ -743,11 +633,7 @@ button {
     overflow-wrap: anywhere;
 }
 
-.card-actions {
-    display: flex;
-    gap: 8px;
-    margin-top: 12px;
-}
+.card-actions { display: flex; gap: 8px; margin-top: 12px; }
 
 .action-btn {
     border: 1px solid var(--border);
@@ -758,13 +644,8 @@ button {
     font-size: 11px;
 }
 
-.action-btn:hover {
-    border-color: var(--red);
-}
-
-.action-btn.danger {
-    color: #ff8193;
-}
+.action-btn:hover { border-color: var(--red); }
+.action-btn.danger { color: #ff8193; }
 
 .empty-state {
     text-align: center;
@@ -808,17 +689,8 @@ button {
     margin-bottom: 20px;
 }
 
-.modal-header h2 {
-    font-size: 18px;
-    margin: 0;
-}
-
-.close-btn {
-    border: 0;
-    background: transparent;
-    color: white;
-    font-size: 23px;
-}
+.modal-header h2 { font-size: 18px; margin: 0; }
+.close-btn { border: 0; background: transparent; color: white; font-size: 23px; }
 
 .toast {
     position: fixed;
@@ -835,9 +707,7 @@ button {
     font-size: 13px;
 }
 
-.sidebar-backdrop {
-    display: none;
-}
+.sidebar-backdrop { display: none; }
 
 /* RESPONSIVIDADE */
 
@@ -853,9 +723,7 @@ button {
         min-width: 280px;
     }
 
-    .sidebar.open {
-        transform: translateX(0);
-    }
+    .sidebar.open { transform: translateX(0); }
 
     .sidebar-backdrop.show {
         display: block;
@@ -865,46 +733,20 @@ button {
         z-index: 15;
     }
 
-    .menu-toggle {
-        display: block;
-    }
-
-    .topbar {
-        padding: 0 15px;
-    }
-
-    .view-host {
-        padding: 20px 13px;
-    }
-
-    .composer-area {
-        padding: 10px;
-    }
-
-    .suggestions {
-        grid-template-columns: 1fr;
-    }
-
-    .auth-card {
-        padding: 25px 20px;
-    }
-
-    .message-body {
-        max-width: 90%;
-    }
-
-    .message-content {
-        font-size: 13px;
-    }
-
-    .copy-button {
-        padding: 8px 12px;
-    }
-
-    .welcome-symbol {
-        width: 88px;
-        height: 88px;
-    }
+    .menu-toggle { display: block; }
+    .topbar { padding: 0 15px; }
+    .view-host { padding: 20px 13px; }
+    .composer-area { padding: 10px; }
+    .suggestions { grid-template-columns: 1fr; }
+    .auth-card { padding: 25px 20px; }
+    .message-body { max-width: 90%; }
+    .message-content { font-size: 13px; }
+    .copy-button { padding: 8px 12px; }
+    .welcome-symbol { width: 88px; height: 88px; }
+    .composer { gap: 4px; padding: 7px; }
+    .tool-btn { width: 35px; height: 40px; font-size: 17px; }
+    .composer textarea { padding: 10px 5px; font-size: 13px; }
+    .send-btn { width: 39px; height: 40px; }
 }
 </style>
 </head>
@@ -935,7 +777,6 @@ button {
         </div>
 
         <div id="loginError" class="auth-error"></div>
-
         <button class="primary-btn" type="submit">Entrar na PCNOT AI</button>
 
         <div class="auth-switch">
@@ -981,7 +822,6 @@ button {
         </div>
 
         <div id="registerError" class="auth-error"></div>
-
         <button class="primary-btn" type="submit">Criar minha conta</button>
 
         <div class="auth-switch">
@@ -998,7 +838,6 @@ button {
     <div id="sidebarBackdrop" class="sidebar-backdrop"></div>
 
     <aside id="sidebar" class="sidebar">
-
         <div class="sidebar-brand">
             <div class="sidebar-logo apple-logo"></div>
             <strong>PCNOT <span>AI</span></strong>
@@ -1016,12 +855,10 @@ button {
 
         <div id="adminSection" class="hidden">
             <div class="sidebar-section">Administração</div>
-
             <button class="side-btn" id="adminUsersBtn">
                 <span class="side-icon">♙</span>
                 Usuários
             </button>
-
             <button class="side-btn" id="adminConversationsBtn">
                 <span class="side-icon">▤</span>
                 Todas as conversas
@@ -1029,7 +866,6 @@ button {
         </div>
 
         <div class="sidebar-section">Histórico</div>
-
         <div id="historyList" class="history-list">
             <div class="empty-state">Carregando conversas...</div>
         </div>
@@ -1042,19 +878,16 @@ button {
                     <small id="userRole">Conta pessoal</small>
                 </div>
             </div>
-
             <button class="logout-btn" id="logoutBtn">↪ Sair da conta</button>
         </div>
     </aside>
 
     <main class="main">
-
         <header class="topbar">
             <div style="display:flex;align-items:center;gap:13px">
                 <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">☰</button>
                 <div class="topbar-title" id="topbarTitle">Nova conversa</div>
             </div>
-
             <div class="online-status">
                 <span class="online-dot"></span>
                 PCNOT AI online
@@ -1071,7 +904,6 @@ button {
                         Estou aqui para ajudar você a aprender,
                         criar ideias e resolver suas dúvidas.
                     </p>
-
                     <div class="suggestions">
                         <button class="suggestion" data-prompt="Explique um assunto de forma simples.">📚 Me ajude a estudar</button>
                         <button class="suggestion" data-prompt="Me ajude a criar uma ideia de projeto.">💡 Criar uma ideia</button>
@@ -1083,15 +915,31 @@ button {
         </div>
 
         <div class="composer-area" id="composerArea">
+
+            <div id="imagePreview" class="image-preview hidden">
+                <img id="previewImage" src="" alt="Imagem selecionada">
+                <div class="image-preview-info">
+                    <strong>Imagem anexada</strong>
+                    <div>Pronta para enviar à PCNOT AI</div>
+                </div>
+                <button type="button" id="removeImageBtn" class="remove-image-btn" aria-label="Remover imagem" title="Remover imagem">×</button>
+            </div>
+
             <div class="composer">
+                <div class="composer-tools">
+                    <input type="file" id="imageInput" accept="image/jpeg,image/png,image/webp" hidden>
+                    <button type="button" id="attachImageBtn" class="tool-btn" title="Enviar imagem" aria-label="Enviar imagem">📎</button>
+                    <button type="button" id="micBtn" class="tool-btn" title="Falar com a PCNOT AI" aria-label="Ativar microfone">🎙️</button>
+                </div>
+
                 <textarea id="messageInput" rows="1" placeholder="Converse com a PCNOT AI..."></textarea>
                 <button id="sendBtn" class="send-btn" aria-label="Enviar mensagem">➤</button>
             </div>
+
             <div class="composer-note">
                 A PCNOT AI pode cometer erros. Confira informações importantes.
             </div>
         </div>
-
     </main>
 </section>
 
@@ -1114,6 +962,10 @@ let usuarioAtual = null;
 let conversaAtual = null;
 let enviando = false;
 let toastTimeout = null;
+
+let imagemSelecionada = null;
+let reconhecimentoVoz = null;
+let gravandoVoz = false;
 
 /* API */
 
@@ -1373,9 +1225,190 @@ $("newChatBtn").addEventListener("click", () => {
     $("messageInput").focus();
 });
 
+/* IMAGENS */
+
+$("attachImageBtn").addEventListener("click", () => {
+    $("imageInput").click();
+});
+
+$("imageInput").addEventListener("change", async event => {
+    const arquivo = event.target.files?.[0];
+
+    if (!arquivo) return;
+
+    const tiposPermitidos = [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+    ];
+
+    if (!tiposPermitidos.includes(arquivo.type)) {
+        mostrarToast("Escolha uma imagem JPG, PNG ou WEBP.");
+        event.target.value = "";
+        return;
+    }
+
+    if (arquivo.size > 5 * 1024 * 1024) {
+        mostrarToast("A imagem deve ter no máximo 5 MB.");
+        event.target.value = "";
+        return;
+    }
+
+    try {
+        mostrarToast("Preparando imagem...");
+        imagemSelecionada = await redimensionarImagem(arquivo);
+
+        $("previewImage").src = imagemSelecionada.url;
+        $("imagePreview").classList.remove("hidden");
+
+        mostrarToast("Imagem pronta para enviar!");
+
+    } catch (erro) {
+        imagemSelecionada = null;
+        mostrarToast("Não foi possível carregar essa imagem.");
+    }
+
+    event.target.value = "";
+});
+
+function redimensionarImagem(arquivo) {
+    return new Promise((resolve, reject) => {
+        const leitor = new FileReader();
+
+        leitor.onload = () => {
+            const imagem = new Image();
+
+            imagem.onload = () => {
+                const limite = 1280;
+                let largura = imagem.width;
+                let altura = imagem.height;
+
+                if (largura > limite || altura > limite) {
+                    const proporcao = Math.min(
+                        limite / largura,
+                        limite / altura
+                    );
+
+                    largura = Math.round(largura * proporcao);
+                    altura = Math.round(altura * proporcao);
+                }
+
+                const canvas = document.createElement("canvas");
+                canvas.width = largura;
+                canvas.height = altura;
+
+                const contexto = canvas.getContext("2d");
+
+                if (!contexto) {
+                    reject(new Error("Não foi possível processar a imagem."));
+                    return;
+                }
+
+                contexto.fillStyle = "#ffffff";
+                contexto.fillRect(0, 0, largura, altura);
+                contexto.drawImage(imagem, 0, 0, largura, altura);
+
+                const dataUrl = canvas.toDataURL("image/jpeg", 0.82);
+                const base64 = dataUrl.split(",")[1];
+
+                if (!base64) {
+                    reject(new Error("Imagem inválida."));
+                    return;
+                }
+
+                resolve({
+                    base64,
+                    mime: "image/jpeg",
+                    url: dataUrl
+                });
+            };
+
+            imagem.onerror = () => reject(new Error("Imagem inválida."));
+            imagem.src = leitor.result;
+        };
+
+        leitor.onerror = () => reject(new Error("Falha ao ler imagem."));
+        leitor.readAsDataURL(arquivo);
+    });
+}
+
+function removerImagem() {
+    imagemSelecionada = null;
+    $("previewImage").src = "";
+    $("imagePreview").classList.add("hidden");
+}
+
+$("removeImageBtn").addEventListener("click", removerImagem);
+
+/* MICROFONE */
+
+$("micBtn").addEventListener("click", iniciarMicrofone);
+
+function iniciarMicrofone() {
+    const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+        mostrarToast("Seu navegador não oferece reconhecimento de voz. Tente usar o Chrome ou Edge.");
+        return;
+    }
+
+    if (gravandoVoz && reconhecimentoVoz) {
+        reconhecimentoVoz.stop();
+        return;
+    }
+
+    reconhecimentoVoz = new SpeechRecognition();
+    reconhecimentoVoz.lang = "pt-BR";
+    reconhecimentoVoz.continuous = false;
+    reconhecimentoVoz.interimResults = false;
+
+    reconhecimentoVoz.onstart = () => {
+        gravandoVoz = true;
+        $("micBtn").classList.add("recording");
+        $("micBtn").textContent = "⏹";
+        $("micBtn").title = "Parar gravação";
+        mostrarToast("Estou ouvindo...");
+    };
+
+    reconhecimentoVoz.onresult = event => {
+        const transcricao = event.results[0][0].transcript;
+        const campo = $("messageInput");
+
+        campo.value = campo.value
+            ? campo.value.trim() + " " + transcricao
+            : transcricao;
+
+        campo.dispatchEvent(new Event("input"));
+        campo.focus();
+    };
+
+    reconhecimentoVoz.onerror = event => {
+        if (event.error === "not-allowed" || event.error === "service-not-allowed") {
+            mostrarToast("Permita o acesso ao microfone nas configurações do navegador.");
+        } else if (event.error !== "no-speech" && event.error !== "aborted") {
+            mostrarToast("Não foi possível reconhecer sua voz.");
+        }
+    };
+
+    reconhecimentoVoz.onend = () => {
+        gravandoVoz = false;
+        $("micBtn").classList.remove("recording");
+        $("micBtn").textContent = "🎙️";
+        $("micBtn").title = "Falar com a PCNOT AI";
+        reconhecimentoVoz = null;
+    };
+
+    try {
+        reconhecimentoVoz.start();
+    } catch {
+        mostrarToast("Não foi possível iniciar o microfone.");
+    }
+}
+
 /* MENSAGENS E CÓPIA */
 
-function criarMensagem(role, conteudo) {
+function criarMensagem(role, conteudo, imagemUrl = null) {
     const linha = document.createElement("div");
 
     linha.className =
@@ -1388,11 +1421,21 @@ function criarMensagem(role, conteudo) {
     const corpo = document.createElement("div");
     corpo.className = "message-body";
 
-    const texto = document.createElement("div");
-    texto.className = "message-content";
-    texto.textContent = conteudo ?? "";
+    if (imagemUrl) {
+        const imagem = document.createElement("img");
+        imagem.className = "message-image";
+        imagem.src = imagemUrl;
+        imagem.alt = "Imagem enviada";
+        imagem.loading = "lazy";
+        corpo.appendChild(imagem);
+    }
 
-    corpo.appendChild(texto);
+    if (conteudo) {
+        const texto = document.createElement("div");
+        texto.className = "message-content";
+        texto.textContent = conteudo;
+        corpo.appendChild(texto);
+    }
 
     if (role !== "user") {
         const botao = document.createElement("button");
@@ -1417,9 +1460,7 @@ function criarMensagem(role, conteudo) {
                     const copiou = document.execCommand("copy");
                     temporario.remove();
 
-                    if (!copiou) {
-                        throw new Error("Falha ao copiar");
-                    }
+                    if (!copiou) throw new Error("Falha ao copiar");
                 }
 
                 botao.textContent = "✓ Copiado!";
@@ -1439,7 +1480,6 @@ function criarMensagem(role, conteudo) {
     }
 
     linha.append(avatar, corpo);
-
     return linha;
 }
 
@@ -1466,16 +1506,25 @@ async function enviarMensagem() {
     if (enviando) return;
 
     const texto = $("messageInput").value.trim();
+    const imagem = imagemSelecionada;
 
-    if (!texto) return;
+    if (!texto && !imagem) return;
 
     enviando = true;
     $("sendBtn").disabled = true;
+
     $("messageInput").value = "";
     $("messageInput").style.height = "42px";
 
     const area = obterAreaMensagens();
-    area.appendChild(criarMensagem("user", texto));
+
+    area.appendChild(
+        criarMensagem(
+            "user",
+            texto || (imagem ? "Analise esta imagem." : ""),
+            imagem ? imagem.url : null
+        )
+    );
 
     const carregando = document.createElement("div");
     carregando.className = "typing";
@@ -1489,7 +1538,9 @@ async function enviarMensagem() {
             method: "POST",
             body: {
                 texto,
-                conversa_id: conversaAtual
+                conversa_id: conversaAtual,
+                image_data: imagem ? imagem.base64 : null,
+                image_mime: imagem ? imagem.mime : null
             }
         });
 
@@ -1503,13 +1554,19 @@ async function enviarMensagem() {
             )
         );
 
+        removerImagem();
         carregarHistorico();
 
     } catch (erro) {
         carregando.remove();
+
         area.appendChild(
             criarMensagem("assistant", "Erro: " + erro.message)
         );
+
+        if (texto) {
+            $("messageInput").value = texto;
+        }
 
     } finally {
         enviando = false;
@@ -1618,9 +1675,7 @@ async function excluirConversa(id) {
             method: "DELETE"
         });
 
-        if (conversaAtual === id) {
-            mostrarTelaInicial();
-        }
+        if (conversaAtual === id) mostrarTelaInicial();
 
         await carregarHistorico();
         mostrarToast("Conversa excluída.");
@@ -1959,9 +2014,7 @@ function fecharModal() {
 $("closeModal").addEventListener("click", fecharModal);
 
 $("conversationModal").addEventListener("click", event => {
-    if (event.target === $("conversationModal")) {
-        fecharModal();
-    }
+    if (event.target === $("conversationModal")) fecharModal();
 });
 
 document.addEventListener("keydown", event => {
@@ -1982,6 +2035,7 @@ async function sair() {
 
     usuarioAtual = null;
     conversaAtual = null;
+    removerImagem();
 
     $("appScreen").classList.add("hidden");
     $("authScreen").classList.remove("hidden");

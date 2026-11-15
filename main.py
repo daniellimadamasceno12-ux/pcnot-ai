@@ -11,6 +11,8 @@ import hashlib
 import secrets
 import requests
 import psycopg
+import base64
+import binascii
 
 from psycopg.rows import dict_row
 from pathlib import Path
@@ -29,13 +31,23 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+
 MODELO = "openai/gpt-oss-20b"
+MODELO_VISAO = "qwen/qwen3.8-27b"
 
 TEMPO_URL = "https://api.open-meteo.com/v1/forecast"
 
 NOME_APP = "PCNOT AI"
-VERSAO = "4.0.0"
+VERSAO = "5.0.0"
 TERMOS_VERSAO = "1.0"
+
+TAMANHO_MAXIMO_IMAGEM = 5 * 1024 * 1024
+
+TIPOS_IMAGEM = {
+    "image/jpeg",
+    "image/png",
+    "image/webp"
+}
 
 if not DATABASE_URL:
     raise RuntimeError("A variável DATABASE_URL não foi configurada.")
@@ -87,8 +99,10 @@ def conectar():
             row_factory=dict_row,
             connect_timeout=15
         )
+
     except Exception as erro:
         print("Erro ao conectar ao Supabase:", erro)
+
         raise HTTPException(
             status_code=503,
             detail="Não foi possível conectar ao banco de dados."
@@ -111,18 +125,22 @@ def inicializar_banco():
             termos_aceitos_em TIMESTAMPTZ
         )
         """,
+
         """
         ALTER TABLE usuarios
         ADD COLUMN IF NOT EXISTS termos_versao TEXT
         """,
+
         """
         ALTER TABLE usuarios
         ADD COLUMN IF NOT EXISTS termos_aceitos_em TIMESTAMPTZ
         """,
+
         """
         CREATE UNIQUE INDEX IF NOT EXISTS usuarios_username_unico
         ON usuarios (LOWER(username))
         """,
+
         """
         CREATE TABLE IF NOT EXISTS sessoes (
             id BIGSERIAL PRIMARY KEY,
@@ -133,6 +151,7 @@ def inicializar_banco():
             criado_em TIMESTAMPTZ DEFAULT NOW()
         )
         """,
+
         """
         CREATE TABLE IF NOT EXISTS conversas (
             id BIGSERIAL PRIMARY KEY,
@@ -143,6 +162,7 @@ def inicializar_banco():
             atualizada_em TIMESTAMPTZ DEFAULT NOW()
         )
         """,
+
         """
         CREATE TABLE IF NOT EXISTS mensagens (
             id BIGSERIAL PRIMARY KEY,
@@ -155,6 +175,7 @@ def inicializar_banco():
             criada_em TIMESTAMPTZ DEFAULT NOW()
         )
         """,
+
         """
         CREATE TABLE IF NOT EXISTS memorias (
             id BIGSERIAL PRIMARY KEY,
@@ -164,14 +185,17 @@ def inicializar_banco():
             criada_em TIMESTAMPTZ DEFAULT NOW()
         )
         """,
+
         """
         CREATE INDEX IF NOT EXISTS conversas_usuario_idx
         ON conversas(usuario_id)
         """,
+
         """
         CREATE INDEX IF NOT EXISTS mensagens_conversa_idx
         ON mensagens(conversa_id)
         """,
+
         """
         CREATE INDEX IF NOT EXISTS memorias_usuario_idx
         ON memorias(usuario_id)
@@ -215,7 +239,10 @@ def verificar_senha(senha, senha_hash):
             p=1
         )
 
-        return hmac.compare_digest(chave.hex(), chave_hex)
+        return hmac.compare_digest(
+            chave.hex(),
+            chave_hex
+        )
 
     except Exception:
         return False
@@ -226,7 +253,9 @@ def criar_token():
 
 
 def hash_token(token):
-    return hashlib.sha256(token.encode("utf-8")).hexdigest()
+    return hashlib.sha256(
+        token.encode("utf-8")
+    ).hexdigest()
 
 
 def definir_cookie(response, request, token):
@@ -251,7 +280,7 @@ def definir_cookie(response, request, token):
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     inicializar_banco()
-    print("PCNOT AI iniciado!")
+    print("PCNOT AI iniciada!")
     yield
 
 
@@ -264,7 +293,7 @@ app = FastAPI(
 
 
 # =========================================================
-# MODELOS
+# MODELOS DE DADOS
 # =========================================================
 
 class Cadastro(BaseModel):
@@ -281,8 +310,10 @@ class Login(BaseModel):
 
 
 class Mensagem(BaseModel):
-    texto: str = Field(min_length=1, max_length=10000)
+    texto: str = Field(default="", max_length=10000)
     conversa_id: int | None = None
+    image_data: str | None = Field(default=None, max_length=7000000)
+    image_mime: str | None = None
 
 
 class StatusUsuario(BaseModel):
@@ -354,7 +385,10 @@ def validar_origem(request: Request):
     if not origem:
         return
 
-    host_origem = origem.replace("https://", "").replace("http://", "")
+    host_origem = origem.replace(
+        "https://", ""
+    ).replace("http://", "")
+
     host_requisicao = request.headers.get("host", "")
 
     if host_origem.split("/")[0].lower() != host_requisicao.lower():
@@ -377,7 +411,10 @@ def inicio():
     arquivo = STATIC_DIR / "index.html"
 
     if not arquivo.exists():
-        raise HTTPException(404, "Página inicial não encontrada.")
+        raise HTTPException(
+            404,
+            "Página inicial não encontrada."
+        )
 
     return FileResponse(arquivo)
 
@@ -387,7 +424,10 @@ def termos():
     arquivo = STATIC_DIR / "termos.html"
 
     if not arquivo.exists():
-        raise HTTPException(404, "Página de termos não encontrada.")
+        raise HTTPException(
+            404,
+            "Página de termos não encontrada."
+        )
 
     return FileResponse(arquivo)
 
@@ -409,6 +449,7 @@ def status():
         "nome": NOME_APP,
         "status": "online",
         "modelo": MODELO,
+        "modelo_visao": MODELO_VISAO,
         "provedor": "Groq"
     }
 
@@ -441,7 +482,10 @@ def registrar(
         )
 
     if len(nome) < 2:
-        raise HTTPException(400, "Informe um nome de exibição válido.")
+        raise HTTPException(
+            400,
+            "Informe um nome de exibição válido."
+        )
 
     senha_hash = gerar_hash_senha(dados.senha)
 
@@ -451,8 +495,8 @@ def registrar(
                 cursor.execute(
                     "SELECT COUNT(*) AS total FROM usuarios"
                 )
-                total = cursor.fetchone()["total"]
 
+                total = cursor.fetchone()["total"]
                 primeiro_usuario = total == 0
 
                 cursor.execute(
@@ -639,7 +683,7 @@ def logout(
 
 
 # =========================================================
-# LISTAR CONVERSAS DO USUÁRIO
+# CONVERSAS
 # =========================================================
 
 @app.get("/conversas")
@@ -665,10 +709,6 @@ def listar_conversas(usuario=Depends(usuario_atual)):
     return {"conversas": conversas}
 
 
-# =========================================================
-# CRIAR CONVERSA
-# =========================================================
-
 @app.post("/conversas")
 def criar_conversa(usuario=Depends(usuario_atual)):
     with conectar() as banco:
@@ -689,10 +729,6 @@ def criar_conversa(usuario=Depends(usuario_atual)):
         "conversa_id": conversa_id
     }
 
-
-# =========================================================
-# ABRIR CONVERSA
-# =========================================================
 
 @app.get("/conversas/{conversa_id}")
 def abrir_conversa(
@@ -739,10 +775,6 @@ def abrir_conversa(
         "mensagens": mensagens
     }
 
-
-# =========================================================
-# EXCLUIR CONVERSA
-# =========================================================
 
 @app.delete("/conversas/{conversa_id}")
 def excluir_conversa(
@@ -1065,7 +1097,10 @@ def obter_memorias(usuario_id):
 
             resultados = cursor.fetchall()
 
-    return [item["conteudo"] for item in resultados]
+    return [
+        item["conteudo"]
+        for item in resultados
+    ]
 
 
 def salvar_memoria(usuario_id, conteudo):
@@ -1119,6 +1154,8 @@ Regras:
 - Use listas e exemplos quando ajudarem.
 - Não diga que está usando Ollama.
 - Você está sendo executada pela API Groq.
+- Quando receber uma imagem, analise o que aparece nela.
+- Se não conseguir identificar algo na imagem, seja sincera.
 
 Nome de exibição do usuário: {usuario['nome_exibicao']}
 Finalidade informada: {usuario['finalidade']}
@@ -1136,17 +1173,150 @@ Memórias do usuário:
 
 
 # =========================================================
+# PREPARAÇÃO E VALIDAÇÃO DE IMAGENS
+# =========================================================
+
+def preparar_imagem(image_data, image_mime):
+    if not image_data:
+        if image_mime:
+            raise HTTPException(
+                400,
+                "Foi informado um tipo de imagem sem enviar a imagem."
+            )
+
+        return None, None
+
+    # Aceita tanto base64 puro quanto data URL.
+    if image_data.startswith("data:"):
+        cabecalho, separador, conteudo = image_data.partition(",")
+
+        if not separador or ";base64" not in cabecalho:
+            raise HTTPException(
+                400,
+                "Formato de imagem inválido."
+            )
+
+        mime_cabecalho = cabecalho[5:].split(";")[0].lower()
+
+        if image_mime and image_mime.lower() != mime_cabecalho:
+            raise HTTPException(
+                400,
+                "O tipo informado não corresponde à imagem."
+            )
+
+        image_mime = mime_cabecalho
+        image_data = conteudo
+
+    if not image_mime:
+        raise HTTPException(
+            400,
+            "O tipo da imagem não foi informado."
+        )
+
+    image_mime = image_mime.lower().strip()
+
+    if image_mime not in TIPOS_IMAGEM:
+        raise HTTPException(
+            400,
+            "Formato não permitido. Envie JPG, PNG ou WEBP."
+        )
+
+    try:
+        imagem_bytes = base64.b64decode(
+            image_data,
+            validate=True
+        )
+
+    except (binascii.Error, ValueError):
+        raise HTTPException(
+            400,
+            "A imagem enviada está inválida."
+        )
+
+    if not imagem_bytes:
+        raise HTTPException(
+            400,
+            "A imagem está vazia."
+        )
+
+    if len(imagem_bytes) > TAMANHO_MAXIMO_IMAGEM:
+        raise HTTPException(
+            413,
+            "A imagem deve ter no máximo 5 MB."
+        )
+
+    # Confere a assinatura real do arquivo.
+    assinatura_valida = False
+
+    if image_mime == "image/jpeg":
+        assinatura_valida = imagem_bytes.startswith(b"\xff\xd8\xff")
+
+    elif image_mime == "image/png":
+        assinatura_valida = imagem_bytes.startswith(
+            b"\x89PNG\r\n\x1a\n"
+        )
+
+    elif image_mime == "image/webp":
+        assinatura_valida = (
+            len(imagem_bytes) >= 12
+            and imagem_bytes[:4] == b"RIFF"
+            and imagem_bytes[8:12] == b"WEBP"
+        )
+
+    if not assinatura_valida:
+        raise HTTPException(
+            400,
+            "O arquivo não corresponde ao formato de imagem informado."
+        )
+
+    return image_data, image_mime
+
+
+# =========================================================
 # GROQ
 # =========================================================
 
-def gerar_resposta(historico):
+def gerar_resposta(historico, imagem_base64=None, imagem_mime=None):
     cabecalhos = {
         "Authorization": f"Bearer {GROQ_API_KEY}",
         "Content-Type": "application/json"
     }
 
+    modelo_escolhido = MODELO
+
+    if imagem_base64:
+        modelo_escolhido = MODELO_VISAO
+
+        # A imagem é enviada somente nesta requisição.
+        # Ela não é armazenada no banco de dados.
+        mensagem_imagem = {
+            "type": "image_url",
+            "image_url": {
+                "url": (
+                    f"data:{imagem_mime};base64,{imagem_base64}"
+                )
+            }
+        }
+
+        # O conteúdo multimodal já é preparado no histórico.
+        # Esta proteção evita enviar uma imagem sem conteúdo textual.
+        for mensagem in reversed(historico):
+            if mensagem["role"] == "user":
+                if isinstance(mensagem["content"], str):
+                    texto = mensagem["content"]
+
+                    mensagem["content"] = [
+                        {
+                            "type": "text",
+                            "text": texto
+                        },
+                        mensagem_imagem
+                    ]
+
+                break
+
     corpo = {
-        "model": MODELO,
+        "model": modelo_escolhido,
         "messages": historico,
         "temperature": 0.7,
         "max_completion_tokens": 2048
@@ -1156,11 +1326,16 @@ def gerar_resposta(historico):
         GROQ_URL,
         headers=cabecalhos,
         json=corpo,
-        timeout=90
+        timeout=120
     )
 
     if resposta.status_code != 200:
-        print("Erro Groq:", resposta.status_code, resposta.text)
+        print(
+            "Erro Groq:",
+            resposta.status_code,
+            resposta.text[:2000]
+        )
+
         raise RuntimeError(
             "A IA não conseguiu gerar uma resposta."
         )
@@ -1169,8 +1344,19 @@ def gerar_resposta(historico):
 
     conteudo = dados["choices"][0]["message"]["content"]
 
+    if isinstance(conteudo, list):
+        partes = []
+
+        for parte in conteudo:
+            if isinstance(parte, dict) and parte.get("type") == "text":
+                partes.append(parte.get("text", ""))
+
+        conteudo = "\n".join(partes)
+
     if not conteudo or not conteudo.strip():
-        raise RuntimeError("A IA retornou uma resposta vazia.")
+        raise RuntimeError(
+            "A IA retornou uma resposta vazia."
+        )
 
     return conteudo.strip()
 
@@ -1189,13 +1375,30 @@ def conversar(
 
     mensagem_usuario = dados.texto.strip()
 
-    if not mensagem_usuario:
+    imagem_base64, imagem_mime = preparar_imagem(
+        dados.image_data,
+        dados.image_mime
+    )
+
+    if not mensagem_usuario and not imagem_base64:
         raise HTTPException(
             400,
-            "Digite uma mensagem."
+            "Digite uma mensagem ou envie uma imagem."
         )
 
+    if not mensagem_usuario and imagem_base64:
+        mensagem_usuario = "Analise esta imagem e me explique o que aparece nela."
+
+    conteudo_salvo = mensagem_usuario
+
+    if imagem_base64:
+        conteudo_salvo += "\n[Imagem anexada]"
+
     conversa_id = dados.conversa_id
+
+    # -----------------------------------------------------
+    # Verifica ou cria conversa e salva mensagem do usuário.
+    # -----------------------------------------------------
 
     with conectar() as banco:
         with banco.cursor() as cursor:
@@ -1219,13 +1422,15 @@ def conversar(
                     )
 
             else:
+                titulo = mensagem_usuario[:45] or "Imagem enviada"
+
                 cursor.execute(
                     """
                     INSERT INTO conversas (usuario_id, titulo)
                     VALUES (%s, %s)
                     RETURNING id
                     """,
-                    (usuario["id"], mensagem_usuario[:45])
+                    (usuario["id"], titulo)
                 )
 
                 conversa_id = cursor.fetchone()["id"]
@@ -1240,7 +1445,11 @@ def conversar(
                 )
                 VALUES (%s, %s, 'user', %s)
                 """,
-                (conversa_id, usuario["id"], mensagem_usuario)
+                (
+                    conversa_id,
+                    usuario["id"],
+                    conteudo_salvo
+                )
             )
 
             cursor.execute(
@@ -1265,7 +1474,15 @@ def conversar(
                 (conversa_id,)
             )
 
-    cidade = detectar_cidade(mensagem_usuario)
+    # -----------------------------------------------------
+    # Consulta de clima.
+    # Se houver imagem, a IA analisa a imagem normalmente.
+    # -----------------------------------------------------
+
+    cidade = None
+
+    if not imagem_base64:
+        cidade = detectar_cidade(mensagem_usuario)
 
     if cidade:
         resposta_ia = consultar_clima(cidade)
@@ -1292,7 +1509,11 @@ def conversar(
             })
 
         try:
-            resposta_ia = gerar_resposta(historico)
+            resposta_ia = gerar_resposta(
+                historico,
+                imagem_base64=imagem_base64,
+                imagem_mime=imagem_mime
+            )
 
         except requests.Timeout:
             raise HTTPException(
@@ -1300,12 +1521,25 @@ def conversar(
                 "A PCNOT AI demorou para responder. Tente novamente."
             )
 
+        except requests.RequestException as erro:
+            print("Erro de conexão com Groq:", erro)
+
+            raise HTTPException(
+                502,
+                "Não consegui conectar à inteligência artificial."
+            )
+
         except Exception as erro:
             print("Erro ao conversar:", erro)
+
             raise HTTPException(
                 502,
                 "Não consegui gerar uma resposta agora. Tente novamente."
             )
+
+    # -----------------------------------------------------
+    # Salva resposta da IA.
+    # -----------------------------------------------------
 
     with conectar() as banco:
         with banco.cursor() as cursor:
@@ -1319,7 +1553,11 @@ def conversar(
                 )
                 VALUES (%s, %s, 'assistant', %s)
                 """,
-                (conversa_id, usuario["id"], resposta_ia)
+                (
+                    conversa_id,
+                    usuario["id"],
+                    resposta_ia
+                )
             )
 
             cursor.execute(
